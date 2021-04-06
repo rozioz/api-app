@@ -5,12 +5,13 @@ namespace App\Http\Controllers\api;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use App\Models\SambungBaru;
+use App\Http\Controllers\Controller;
 
 class SambungBaruController extends Controller
 {
-    public function __construct(SambungBaru $model) {
-        parent::__construct($model);
-    }
+//    public function __construct(SambungBaru $model) {
+//        parent::__construct($model);
+//    }
     
     // GET ALL DATA
     public function index(){

@@ -3,7 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
-use App\Http\Controllers\Api\SambungBaruController;
+use App\Http\Controllers\api\SambungBaruController;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,17 +20,17 @@ Route::middleware('api')->group(function(){
     Route::get('ping', function(){
         return json_encode([
             'status' => 200,
-            'message' => 'Success'
+            'message' => 'Pong! '.date('d-m-Y H:i:s')
         ]);
     });
     Route::prefix('sambung-baru')->group(function() {
         // create
-        Route::post('/', [SambungBaru::class, 'create']);
+        Route::post('/', [SambungBaruController::class, 'create']);
         // read
-        Route::get('/{id}', [SambungBaru::class, 'read']);
-        Route::get('transaction/{trx}', [SambungBaru::class, 'readByTrx']);
+        Route::get('/{id}', [SambungBaruController::class, 'read']);
+        Route::get('transaction/{trx}', [SambungBaruController::class, 'readByTrx']);
         // update
-        Route::patch('/{id}', [SambungBaru::class, 'update']);
+        Route::patch('/{id}', [SambungBaruController::class, 'update']);
     });
     
 });
