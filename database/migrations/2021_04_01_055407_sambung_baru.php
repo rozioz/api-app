@@ -23,6 +23,7 @@ class SambungBaru extends Migration
             $table->string('sb_lat')->nullable();
             $table->integer('sb_status_tanah');
             $table->datetime('sb_tgl_daftar');
+            $table->string('sb_status_daftar')->default('Pengajuan');
             $table->timestamps();
         });
     }

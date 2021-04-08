@@ -24,6 +24,8 @@ Route::middleware('api')->group(function(){
         ]);
     });
     Route::prefix('sambung-baru')->group(function() {
+        // read all data
+        Route::get('/',[SambungBaruController::class, 'all_data']);
         // create
         Route::post('/', [SambungBaruController::class, 'create']);
         // read
