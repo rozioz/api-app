@@ -23,7 +23,7 @@ class SambungBaruController extends Controller
         if(empty($data)){
             return $this->result(404, 'Data tidak ditemukan');
         }
-        return $this->result(200, 'OK', $data);;
+        return $this->result(200, 'OK', $data);
     }
     
     public function all_data_table() {
