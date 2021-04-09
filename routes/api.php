@@ -26,13 +26,15 @@ Route::middleware('api')->group(function(){
     Route::prefix('sambung-baru')->group(function() {
         // read all data
         Route::get('/',[SambungBaruController::class, 'all_data']);
+        
+        Route::get('/',[SambungBaruController::class, 'all_data_table']);
         // create
         Route::post('/', [SambungBaruController::class, 'create']);
         // read
-        Route::get('/{id}', [SambungBaruController::class, 'read']);
-        Route::get('transaction/{trx}', [SambungBaruController::class, 'readByTrx']);
+        Route::get('/{id}', [SambungBaruController::class, 'read_id']);
+        Route::get('transaction/{trx}', [SambungBaruController::class, 'read_trx']);
         // update
-        Route::patch('/{id}', [SambungBaruController::class, 'update']);
+        Route::put('/{id}', [SambungBaruController::class, 'update']);
     });
     
 });

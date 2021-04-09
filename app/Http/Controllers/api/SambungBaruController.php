@@ -9,36 +9,49 @@ use App\Http\Controllers\Controller;
 
 class SambungBaruController extends Controller
 {
-//    public function __construct(SambungBaru $model) {
-//        parent::__construct($model);
-//    }
-    
+    function result($status, $message, $data = null) {
+        $result = array(
+            'status' => $status,
+            'message' => $message,
+            'data' => $data
+        );
+        return response()->json($result);
+    }
     // GET ALL DATA
-    //public function index(){
-        
-    //}
     public function all_data() {
         $data = SambungBaru::all();
         if(empty($data)){
-            return response()->json('Data Kosong', 404);
+            return $this->result(404, 'Data tidak ditemukan');
         }
-        return $data;
+        return $this->result(200, 'OK', $data);;
     }
+    
+    public function all_data_table() {
+        $data = SambungBaru::paginate(10);
+        if(empty($data)){
+            return $this->result(404, 'Data tidak ditemukan');
+        }
+        return $this->result(200, 'OK', $data);
+    }
+    
     // GET DATA BY ID
-    public function read($id) {
-        $data_transaction = SambungBaru::find($id);
-        if(empty($data_transaction)){
-            return response()->json(array('message' => 'Data tidak ditemukan', 'status' => 404));
+    public function read_id($id) {
+        $data = SambungBaru::find($id);
+        if(empty($data)){
+            return $this->result(404, 'Data tidak ditemukan');
         }
-        return $data_transaction;
+        return $this->result(200, 'OK', $data);
     }
+    
     // GET DATA BY TRANSACTION NUMBER
     public function read_trx($trx) {
-        $data_transaction = SambungBaru::find($trx);
-        if(empty($data_transaction)){
-            return response()->json('Data tidak ditemukan', 404);
+        $data = SambungBaru::find($trx);
+        if(empty($data)){
+            return $this->result(404, 'Data tidak ditemukan');
         }
+        return $this->result(200, 'OK', $data);
     }
+    
     // CREATE DATA
     public function create() {
         $request = request();
@@ -52,11 +65,18 @@ class SambungBaruController extends Controller
             'sb_status_tanah' => $request->sb_status_tanah,
             'sb_tgl_daftar' => $request->sb_tgl_daftar,
         ]);
-        return [
-            'status' => 200,
-            'message' => 'OK', 
-            'saved' => $sb
-        ];
+        return $this->result(200, 'OK', $sb);
     }
+    
     // UPDATE DATA
+    public function update($id) {
+        $data = SambungBaru::find($id);
+        if(empty($data)){
+            return $this->result(404, 'Data tidak ditemukan');
+        }
+        $request = request();
+        $data->fill($request->all());
+        $data->save();
+        return $this->result(200, 'OK', $data);
+    }
 }
